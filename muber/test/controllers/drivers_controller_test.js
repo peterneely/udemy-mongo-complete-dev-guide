@@ -6,7 +6,7 @@ const app = require('../../app');
 const Driver = mongoose.model('driver');
 
 describe('Drivers controller', () => {
-  it('Post to /api/drivers creates a new driver', (done) => {
+  it('Post to /api/drivers creates a new driver', done => {
     Driver.count().then(count => {
       request(app)
         .post('/api/drivers')
@@ -20,7 +20,7 @@ describe('Drivers controller', () => {
     });
   });
 
-  it('Post to /api/drivers requires an email', (done) => {
+  it('Post to /api/drivers requires an email', done => {
     request(app)
       .post('/api/drivers')
       .send({})

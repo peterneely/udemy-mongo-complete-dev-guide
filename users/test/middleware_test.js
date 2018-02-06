@@ -6,7 +6,7 @@ const BlogPost = require('../src/blogPost');
 describe('Middlware', () => {
   let joe, blogPost;
 
-  beforeEach((done) => {
+  beforeEach(done => {
     joe = new User({ name: 'Joe' });
     blogPost = new BlogPost({ title: 'JS is Great', content: 'Yep it really is' });
 
@@ -16,7 +16,7 @@ describe('Middlware', () => {
       .then(() => done());
   });
 
-  it('users clean up dangling blogposts on remove', (done) => {
+  it('users clean up dangling blogposts on remove', done => {
     joe.remove()
       .then(() => BlogPost.count())
       .then((count) => {

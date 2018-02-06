@@ -2,7 +2,7 @@ const assert = require('assert');
 const User = require('../src/user');
 
 describe('Subdocuments', () => {
-  it('can create a subdocument', (done) => {
+  it('can create a subdocument', done => {
     const joe = new User({
       name: 'Joe',
       posts: [{ title: 'PostTitle' }]
@@ -16,7 +16,7 @@ describe('Subdocuments', () => {
       });
   });
 
-  it('Can add subdocuments to an existing record', (done) => {
+  it('Can add subdocuments to an existing record', done => {
     const joe = new User({
       name: 'Joe',
       posts: []
@@ -35,7 +35,7 @@ describe('Subdocuments', () => {
       });
   });
 
-  it('can remove an existing subdocument', (done) => {
+  it('can remove an existing subdocument', done => {
     const joe = new User({
       name: 'Joe',
       posts: [{ title: 'New Title' }]
