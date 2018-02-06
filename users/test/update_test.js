@@ -4,58 +4,46 @@ const User = require('../src/user');
 describe('Updating records', () => {
   let joe;
 
-  beforeEach(done => {
+  beforeEach(() => {
     joe = new User({ name: 'Joe', likes: 0 });
-    joe.save()
-      .then(() => done());
+    return joe.save();
   });
 
-  function assertName(operation, done) {
-    operation
+  function assertName(operation) {
+    return operation
       .then(() => User.find({}))
-      .then((users) => {
+      .then(users => {
         assert(users.length === 1);
         assert(users[0].name === 'Alex');
-        done();
       });
   }
 
-  it('instance type using set n save', done => {
+  it('instance type using set n save', () => {
     joe.set('name', 'Alex');
-    assertName(joe.save(), done);
+    assertName(joe.save());
   });
 
-  it('A model instance can update', done => {
-    assertName(joe.update({ name: 'Alex' }), done);
+  it('A model instance can update', () => {
+    assertName(joe.update({ name: 'Alex' }));
   });
 
-  it('A model class can update', done => {
-    assertName(
-      User.update({ name: 'Joe' }, { name: 'Alex' }),
-      done
-    );
+  it('A model class can update', () => {
+    assertName(User.update({ name: 'Joe' }, { name: 'Alex' }));
   });
 
-  it('A model class can update one record', done => {
-    assertName(
-      User.findOneAndUpdate({ name: 'Joe' }, { name: 'Alex' }),
-      done
-    );
+  it('A model class can update one record', () => {
+    assertName(User.findOneAndUpdate({ name: 'Joe' }, { name: 'Alex' }));
   });
 
-  it('A model class can find a record with an Id and update', done => {
-    assertName(
-      User.findByIdAndUpdate(joe._id, { name: 'Alex' }),
-      done
-    );
+  it('A model class can find a record with an Id and update', () => {
+    assertName(User.findByIdAndUpdate(joe._id, { name: 'Alex' }));
   });
 
-  it('A user can have their postcount incremented by 1', done => {
-    User.update({ name: 'Joe' }, { $inc: { likes: 10 } })
+  it('A user can have their postcount incremented by 1', () => {
+    return User.update({ name: 'Joe' }, { $inc: { likes: 10 } })
       .then(() => User.findOne({ name: 'Joe' }))
       .then((user) => {
         assert(user.likes === 10);
-        done();
       });
   });
 });

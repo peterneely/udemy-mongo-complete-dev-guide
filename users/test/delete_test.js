@@ -4,46 +4,41 @@ const User = require('../src/user');
 describe('Deleting a user', () => {
   let joe;
 
-  beforeEach(done => {
+  beforeEach(() => {
     joe = new User({ name: 'Joe' });
-    joe.save()
-      .then(() => done());
+    return joe.save();
   });
 
-  it('model instance remove', done => {
-    joe.remove()
+  it('model instance remove', () => {
+    return joe.remove()
       .then(() => User.findOne({ name: 'Joe' }))
-      .then((user) => {
+      .then(user => {
         assert(user === null);
-        done();
       });
   });
 
-  it('class method remove', done => {
+  it('class method remove', () => {
     // Remove a bunch of records with some given criteria
-    User.remove({ name: 'Joe' })
+    return User.remove({ name: 'Joe' })
       .then(() => User.findOne({ name: 'Joe' }))
-      .then((user) => {
+      .then(user => {
         assert(user === null);
-        done();
       });
   });
 
-  it('class method findOneAndRemove', done => {
-    User.findOneAndRemove({ name: 'Joe' })
+  it('class method findOneAndRemove', () => {
+    return User.findOneAndRemove({ name: 'Joe' })
       .then(() => User.findOne({ name: 'Joe' }))
-      .then((user) => {
+      .then(user => {
         assert(user === null);
-        done();
       });
   });
 
-  it('class method findByIdAndRemove', done => {
-    User.findByIdAndRemove(joe._id)
+  it('class method findByIdAndRemove', () => {
+    return User.findByIdAndRemove(joe._id)
       .then(() => User.findOne({ name: 'Joe' }))
-      .then((user) => {
+      .then(user => {
         assert(user === null);
-        done();
       });
   });
 });

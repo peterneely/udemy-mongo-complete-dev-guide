@@ -6,22 +6,18 @@ const BlogPost = require('../src/blogPost');
 describe('Middlware', () => {
   let joe, blogPost;
 
-  beforeEach(done => {
+  beforeEach(() => {
     joe = new User({ name: 'Joe' });
     blogPost = new BlogPost({ title: 'JS is Great', content: 'Yep it really is' });
-
     joe.blogPosts.push(blogPost);
-
-    Promise.all([joe.save(), blogPost.save()])
-      .then(() => done());
+    return Promise.all([joe.save(), blogPost.save()]);
   });
 
-  it('users clean up dangling blogposts on remove', done => {
-    joe.remove()
+  it('users clean up dangling blogposts on remove', () => {
+    return joe.remove()
       .then(() => BlogPost.count())
-      .then((count) => {
+      .then(count => {
         assert(count === 0);
-        done();
       });
   });
 });

@@ -7,11 +7,8 @@ describe('Creating records', () => {
   it('saves a user', () => {
     const joe = new User({ name: 'Joe' });
     assert(joe.isNew);
-    return joe.save()
-      .then(() => {
-        // Has joe been saved successfully?
-        assert(!joe.isNew);
-        // done();
-      });
+    return joe.save().then(() => {
+      assert(!joe.isNew);
+    });
   });
 });
